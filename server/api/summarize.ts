@@ -1,6 +1,6 @@
 export default defineEventHandler(async (event) => {
     return {
-        message: await summarize()
+        message: await summarize("./sample.pdf")
     }
     //   const body = await useBody(event);
     //   const { text } = body;
