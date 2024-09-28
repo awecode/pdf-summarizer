@@ -7,9 +7,13 @@
         type="file"
         accept=".pdf"
         required
+        :disabled="isLoading"
       >
-      <button type="submit">
-        Upload and Summarize
+      <button
+        type="submit"
+        :disabled="isLoading"
+      >
+        {{ isLoading ? 'Processing...' : 'Upload and Summarize' }}
       </button>
     </form>
     <div v-if="summary">
@@ -28,19 +32,26 @@
 const fileInput = ref(null)
 const summary = ref('')
 const error = ref('')
+const isLoading = ref(false)
 
 const uploadFile = async () => {
   const file = fileInput.value.files[0]
   if (!file) return
 
+  isLoading.value = true
+  error.value = ''
+  summary.value = ''
+
   const formData = new FormData()
   formData.append('pdf', file)
 
   try {
-    const response = await $fetch('/api/summarize', {
+    const response = await fetch('/api/summarize', {
       method: 'POST',
       body: formData,
     })
+
+    console.log(response)
 
     if (!response.ok) {
       throw new Error('Failed to upload and summarize the PDF')
@@ -53,7 +64,9 @@ const uploadFile = async () => {
   catch (err) {
     console.error(err)
     error.value = 'An error occurred while processing the PDF'
-    summary.value = ''
+  }
+  finally {
+    isLoading.value = false
   }
 }
 </script>
