@@ -18,6 +18,7 @@
     "vue-router": "latest"
   },
   "devDependencies": {
+    "nitro-cloudflare-dev": "^0.1.6",
     "wrangler": "^3.78.12"
   }
 }

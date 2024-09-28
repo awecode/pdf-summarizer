@@ -27,6 +27,9 @@ importers:
         specifier: latest
         version: 4.4.5(vue@3.5.10(typescript@5.6.2))
     devDependencies:
+      nitro-cloudflare-dev:
+        specifier: ^0.1.6
+        version: 0.1.6
       wrangler:
         specifier: ^3.78.12
         version: 3.78.12(@cloudflare/workers-types@4.20240925.0)
@@ -2893,6 +2896,9 @@ packages:
 
   natural-compare@1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
+
+  nitro-cloudflare-dev@0.1.6:
+    resolution: {integrity: sha512-7YcLTJsTZSZZ89XrTEaDEnFsVWbppBgLO0Rr5n3Nf93gKHTBkBfeGH8//8FVwV2poi6SabVbJ0a2eoJRoII81w==}
 
   nitropack@2.9.7:
     resolution: {integrity: sha512-aKXvtNrWkOCMsQbsk4A0qQdBjrJ1ZcvwlTQevI/LAgLWLYc5L7Q/YiYxGLal4ITyNSlzir1Cm1D2ZxnYhmpMEw==}
@@ -7211,6 +7217,12 @@ snapshots:
   nanotar@0.1.1: {}
 
   natural-compare@1.4.0: {}
+
+  nitro-cloudflare-dev@0.1.6:
+    dependencies:
+      consola: 3.2.3
+      mlly: 1.7.1
+      pkg-types: 1.2.0
 
   nitropack@2.9.7(magicast@0.3.5):
     dependencies:
