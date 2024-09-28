@@ -14,17 +14,23 @@ export const workerAi = async (
 
   if (aiBinding) {
     try {
-      return await aiBinding.run(model, params)
+      const result = await aiBinding.run(model, params) as Record<string, any>
+      return {
+        result: result,
+        success: true,
+        errors: [],
+        messages: [],
+      }
     } catch (error) {
       const errors = []
       if (error instanceof Error) {
         errors.push({ message: error.message, name: error.name })
       }
       const response = {
+        result: null,
         success: false,
         errors: errors,
         messages: ['Error running Cloudflare AI model'],
-        result: null,
       }
       return response
     }
