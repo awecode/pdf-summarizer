@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <h1>PDF Summarizer</h1>
     <form @submit.prevent="uploadFile">
       <input
@@ -51,14 +51,13 @@ const uploadFile = async () => {
       body: formData,
     })
 
-    console.log(response)
-
     if (!response) {
       throw new Error('Failed to upload and summarize the PDF')
     }
 
     summary.value = response.response.result.response
     error.value = ''
+    fileInput.value.value = ''
   }
   catch (err) {
     console.error(err)
@@ -73,5 +72,8 @@ const uploadFile = async () => {
 <style scoped>
 .error {
   color: red;
+}
+.container{
+    padding: 2em !important;
 }
 </style>
