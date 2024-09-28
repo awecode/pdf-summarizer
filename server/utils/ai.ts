@@ -7,7 +7,7 @@ interface CloudflareAIResponse {
 
 export const workerAi = async (
   model: string,
-  params: Record<string, string | number>
+  params: Record<string, any>
 ): Promise<CloudflareAIResponse> => {
   // @ts-expect-error globalThis.__env__ is not defined
   const aiBinding = process.env.AI || globalThis.__env__?.AI || globalThis.AI
