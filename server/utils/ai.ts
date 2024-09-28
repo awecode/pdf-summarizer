@@ -1,20 +1,33 @@
 interface CloudflareAIResponse {
-  result: Record<string, any>
+  result: Record<string, any> | null
   success: boolean
-  errors: string[]
+  errors: Record<string, any>[]
   messages: string[]
 }
 
 export const workerAi = async (
   model: string,
-  body: Record<string, string | number>
+  params: Record<string, string | number>
 ): Promise<CloudflareAIResponse> => {
   // @ts-expect-error globalThis.__env__ is not defined
   const aiBinding = process.env.AI || globalThis.__env__?.AI || globalThis.AI
 
   if (aiBinding) {
-    const result = await aiBinding.run(model, body)
-    return result
+    try {
+      return await aiBinding.run(model, params)
+    } catch (error) {
+      const errors = []
+      if (error instanceof Error) {
+        errors.push({ message: error.message, name: error.name })
+      }
+      const response = {
+        success: false,
+        errors: errors,
+        messages: ['Error running Cloudflare AI model'],
+        result: null,
+      }
+      return response
+    }
   } else {
     const config = useRuntimeConfig()
     const cfAccountId = config.cfAccountId
@@ -34,7 +47,7 @@ export const workerAi = async (
           Authorization: `Bearer ${cfApiToken}`,
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(body),
+        body: JSON.stringify(params),
       }
     )
     return await response.json()
