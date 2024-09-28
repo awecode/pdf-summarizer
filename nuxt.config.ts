@@ -5,7 +5,11 @@ export default defineNuxtConfig({
   modules: ['@nuxt/eslint'],
   eslint: {
     config: {
-      stylistic: true
-    }
-  }
+      stylistic: true,
+    },
+  },
+  runtimeConfig: {
+    cfAccountId: '',
+    cfApiToken: '',
+  },
 })
