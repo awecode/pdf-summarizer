@@ -9,16 +9,17 @@ export default defineEventHandler(async (event) => {
     })
   }
 
+  const config = useRuntimeConfig()
+
   const text = await pdfToText(pdfFile)
 
-  const parsedText = text.slice(0, 112000)
+  const parsedText = text.slice(0, config.maxContextLength)
 
-  const response = await workerAi('@cf/meta/llama-3.1-70b-instruct', {
+  const response = await workerAi(config.cfWorkerAiModel, {
     messages: [
       {
         role: 'system',
-        content:
-          'You are a helpful assistant that summarizes a text. Respond with the summary in around 100 words only and nothing else.',
+        content: config.systemPrompt,
       },
       {
         role: 'user',
