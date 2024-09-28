@@ -55,7 +55,7 @@ const uploadFile = async () => {
       throw new Error('Failed to upload and summarize the PDF')
     }
 
-    summary.value = response.response.result.response
+    summary.value = response.result.response
     error.value = ''
     fileInput.value.value = ''
   }
