@@ -46,19 +46,18 @@ const uploadFile = async () => {
   formData.append('pdf', file)
 
   try {
-    const response = await fetch('/api/summarize', {
+    const response = await $fetch('/api/summarize', {
       method: 'POST',
       body: formData,
     })
 
     console.log(response)
 
-    if (!response.ok) {
+    if (!response) {
       throw new Error('Failed to upload and summarize the PDF')
     }
 
-    const data = await response.json()
-    summary.value = data.response.result.response
+    summary.value = response.response.result.response
     error.value = ''
   }
   catch (err) {

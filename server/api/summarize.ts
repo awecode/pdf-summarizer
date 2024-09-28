@@ -12,7 +12,7 @@ export default defineEventHandler(async (event) => {
       },
       {
         role: 'user',
-        content: parsedText,
+        content: parsedText
       },
     ],
   })
