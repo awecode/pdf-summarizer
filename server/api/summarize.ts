@@ -1,10 +1,7 @@
 export default defineEventHandler(async (event) => {
-  const text = await summarize('./sample.pdf')
+  const text = await pdfToText('./sample.pdf')
 
-//   const parsedText = text
   const parsedText = text.slice(0, 112000)
-  //   const parsedText = text.slice(0, 131072)
-
 
   const response = await workerAi('@cf/meta/llama-3.1-70b-instruct', {
     messages: [
@@ -15,7 +12,7 @@ export default defineEventHandler(async (event) => {
       },
       {
         role: 'user',
-        content: parsedText
+        content: parsedText,
       },
     ],
   })

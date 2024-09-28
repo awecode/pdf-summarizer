@@ -14,7 +14,7 @@ export const workerAi = async (
 
   if (aiBinding) {
     try {
-      const result = await aiBinding.run(model, params) as Record<string, any>
+      const result = (await aiBinding.run(model, params)) as Record<string, any>
       return {
         result: result,
         success: true,

@@ -1,7 +1,7 @@
 import { extractText, getDocumentProxy } from 'unpdf'
 import { readFile } from "node:fs/promises"
 
-export const summarize = async (filePath: String) => {
+export const pdfToText = async (filePath: String) => {
   const buffer = await readFile(filePath)
   const pdf = await getDocumentProxy(new Uint8Array(buffer))
   // Extract text from PDF
