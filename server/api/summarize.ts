@@ -1,5 +1,15 @@
 export default defineEventHandler(async (event) => {
-  const text = await pdfToText('./sample.pdf')
+  const formData = await readFormData(event)
+  const pdfFile = formData.get('pdf')
+
+  if (!pdfFile || !(pdfFile instanceof File)) {
+    throw createError({
+      statusCode: 400,
+      message: 'No PDF file uploaded',
+    })
+  }
+
+  const text = await pdfToText(pdfFile)
 
   const parsedText = text.slice(0, 112000)
 
@@ -12,7 +22,7 @@ export default defineEventHandler(async (event) => {
       },
       {
         role: 'user',
-        content: parsedText
+        content: parsedText,
       },
     ],
   })

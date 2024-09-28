@@ -1,11 +1,8 @@
 import { extractText, getDocumentProxy } from 'unpdf'
-import { readFile } from "node:fs/promises"
 
-export const pdfToText = async (filePath: String) => {
-  const buffer = await readFile(filePath)
+export const pdfToText = async (pdfFile: File) => {
+  const buffer = await pdfFile.arrayBuffer()
   const pdf = await getDocumentProxy(new Uint8Array(buffer))
-  // Extract text from PDF
-  const { totalPages, text } = await extractText(pdf, { mergePages: true })
-  console.log(`Total pages: ${totalPages}`)
+  const { text } = await extractText(pdf, { mergePages: true })
   return text
 }
