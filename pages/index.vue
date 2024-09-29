@@ -1,12 +1,14 @@
 <template>
   <div class="container">
-    <h1>PDF Summarizer</h1>
-    <button
-      class="settings-button"
-      @click="toggleSettings"
-    >
-      ⚙️ Settings
-    </button>
+    <div class="header">
+      <h1>PDF Summarizer</h1>
+      <button
+        class="settings-button"
+        @click="toggleSettings"
+      >
+        ⚙️ Settings
+      </button>
+    </div>
     <form @submit.prevent="uploadFile">
       <input
         ref="fileInput"
@@ -180,10 +182,16 @@ const uploadFile = async () => {
   position: relative;
 }
 
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1em;
+}
+
 .settings-button {
-  position: absolute;
-  top: 1em;
-  right: 1em;
+  flex-shrink: 0;
+  margin-left: 1em;
 }
 
 .settings-popup {
