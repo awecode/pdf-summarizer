@@ -23,7 +23,7 @@
       </button>
     </form>
     <div v-if="summary">
-      <h2>Summary:</h2>
+      <h2>Summary</h2>
       <p>{{ summary }}</p>
     </div>
     <div v-if="error">
@@ -70,13 +70,14 @@
 </template>
 
 <script setup>
+const config = useRuntimeConfig()
 const fileInput = ref(null)
 const summary = ref('')
 const error = ref('')
 const isLoading = ref(false)
 const showSettings = ref(false)
-const maxContextLength = ref(112000)
-const aiModel = ref('@cf/meta/llama-3.1-70b-instruct')
+const maxContextLength = ref(config.public.maxContextLength)
+const aiModel = ref(config.public.cfWorkerAiModel)
 
 onMounted(() => {
   // Load settings from local storage on component mount

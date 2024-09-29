@@ -11,11 +11,14 @@ export default defineEventHandler(async (event) => {
 
   const config = useRuntimeConfig()
 
+  const maxContextLength = formData.get('maxContextLength') || config.public.maxContextLength
+  const aiModel = formData.get('aiModel')?.toString() || config.public.cfWorkerAiModel
+
   const text = await pdfToText(pdfFile)
 
-  const parsedText = text.slice(0, config.maxContextLength)
+  const parsedText = text.slice(0, Number(maxContextLength))
 
-  const response = await workerAi(config.cfWorkerAiModel, {
+  const response = await workerAi(aiModel, {
     messages: [
       {
         role: 'system',
