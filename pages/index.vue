@@ -13,11 +13,11 @@
         type="file"
         accept=".pdf"
         required
-        :disabled="isLoading"
+        :disabled="isLoading || showSettings"
       >
       <button
         type="submit"
-        :disabled="isLoading"
+        :disabled="isLoading || showSettings"
       >
         {{ isLoading ? 'Processing...' : 'Upload and Summarize' }}
       </button>
@@ -35,36 +35,38 @@
       v-if="showSettings"
       class="settings-popup"
     >
-      <h2>Settings</h2>
-      <label>
-        AI Model
-        <select v-model="aiModel">
-          <option value="@cf/meta/llama-3.1-70b-instruct">
-            Llama 3.1 70B Instruct
-          </option>
-          <option value="@cf/meta/llama-2-7b-chat-int8">Llama 2 7B Chat</option>
-          <option value="@cf/mistral/mistral-7b-instruct-v0.1">Mistral 7B Instruct v0.1</option>
-          <option value="@cf/mistral/mistral-7b-instruct-v0.2">Mistral 7B Instruct v0.2</option>
-          <option value="@hf/thebloke/mistral-7b-instruct-v0.1-awq">Mistral 7B Instruct v0.1 AWQ</option>
-          <option value="@cf/google/gemma-7b-it-lora">Gemma 7B IT LoRA</option>
-        </select>
-      </label>
-      <label>
-        Max Context Length
-        <input
-          v-model="maxContextLength"
-          type="number"
-          min="1000"
-          max="200000"
-          step="1000"
-        >
-      </label>
-      <button @click="saveSettings">
-        Save
-      </button>
-      <button @click="toggleSettings">
-        Close
-      </button>
+      <div class="settings-content">
+        <h2>Settings</h2>
+        <label>
+          AI Model
+          <select v-model="aiModel">
+            <option value="@cf/meta/llama-3.1-70b-instruct">
+              Llama 3.1 70B Instruct
+            </option>
+            <option value="@cf/meta/llama-2-7b-chat-int8">Llama 2 7B Chat</option>
+            <option value="@cf/mistral/mistral-7b-instruct-v0.1">Mistral 7B Instruct v0.1</option>
+            <option value="@cf/mistral/mistral-7b-instruct-v0.2">Mistral 7B Instruct v0.2</option>
+            <option value="@hf/thebloke/mistral-7b-instruct-v0.1-awq">Mistral 7B Instruct v0.1 AWQ</option>
+            <option value="@cf/google/gemma-7b-it-lora">Gemma 7B IT LoRA</option>
+          </select>
+        </label>
+        <label>
+          Max Context Length
+          <input
+            v-model="maxContextLength"
+            type="number"
+            min="1000"
+            max="200000"
+            step="1000"
+          >
+        </label>
+        <button @click="saveSettings">
+          Save
+        </button>
+        <button @click="toggleSettings">
+          Close
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -91,6 +93,12 @@ onMounted(() => {
 
 const toggleSettings = () => {
   showSettings.value = !showSettings.value
+  if (showSettings.value) {
+    document.body.style.overflow = 'hidden'
+  }
+  else {
+    document.body.style.overflow = 'auto'
+  }
 }
 
 const saveSettings = () => {
@@ -100,7 +108,7 @@ const saveSettings = () => {
   }
   localStorage.setItem('pdfSummarizerSettings', JSON.stringify(settings))
   console.log('Settings saved:', settings)
-  showSettings.value = false
+  toggleSettings()
 }
 
 const uploadFile = async () => {
@@ -158,14 +166,25 @@ const uploadFile = async () => {
 
 .settings-popup {
   position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.settings-content {
   background-color: #383e5f;
   padding: 2em;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
+  max-width: 90%;
+  max-height: 90%;
+  overflow-y: auto;
 }
 
 .settings-popup label {
