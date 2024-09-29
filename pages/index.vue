@@ -22,9 +22,16 @@
         {{ isLoading ? 'Processing...' : 'Upload and Summarize' }}
       </button>
     </form>
-    <div v-if="summary">
-      <h2>Summary</h2>
-      <p>{{ summary }}</p>
+    <div v-if="summaries.length > 0">
+      <h2>{{ summaries.length === 1 ? 'Summary' : 'Summaries' }}</h2>
+      <div
+        v-for="(sum, index) in summaries"
+        :key="index"
+      >
+        <h3>{{ sum.fileName }}</h3>
+        <p>{{ sum.content }}</p>
+        <hr v-if="index < summaries.length - 1">
+      </div>
     </div>
     <div v-if="error">
       <p class="error">
@@ -34,6 +41,7 @@
     <div
       v-if="showSettings"
       class="settings-popup"
+      @click.self="toggleSettings"
     >
       <div class="settings-content">
         <h2>Settings</h2>
@@ -74,7 +82,7 @@
 <script setup>
 const config = useRuntimeConfig()
 const fileInput = ref(null)
-const summary = ref('')
+const summaries = ref([])
 const error = ref('')
 const isLoading = ref(false)
 const showSettings = ref(false)
@@ -107,7 +115,6 @@ const saveSettings = () => {
     aiModel: aiModel.value,
   }
   localStorage.setItem('pdfSummarizerSettings', JSON.stringify(settings))
-  console.log('Settings saved:', settings)
   toggleSettings()
 }
 
@@ -117,7 +124,6 @@ const uploadFile = async () => {
 
   isLoading.value = true
   error.value = ''
-  summary.value = ''
 
   const formData = new FormData()
   formData.append('pdf', file)
@@ -134,7 +140,10 @@ const uploadFile = async () => {
       throw new Error('Failed to upload and summarize the PDF')
     }
 
-    summary.value = response.result.response
+    summaries.value.unshift({
+      fileName: file.name,
+      content: response.result.response
+    })
     error.value = ''
     fileInput.value.value = ''
   }
