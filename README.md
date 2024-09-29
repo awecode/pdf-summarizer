@@ -35,7 +35,9 @@ Create a `.env` file in the root directory with the following configuration:
 | NUXT_SYSTEM_PROMPT | System prompt for the AI model | 'You are a helpful assistant that summarizes a text. Respond with the summary in around 100 words only and nothing else.' |
 
 
-Note: NUXT_CF_ACCOUNT_ID and NUXT_CF_API_TOKEN are required when AI binding is not available. In a Cloudflare environment, you can use binding instead of these tokens.
+Notes:
+- NUXT_CF_ACCOUNT_ID and NUXT_CF_API_TOKEN are required when AI binding is not available. In a Cloudflare environment, you can use binding instead of these tokens.
+- The summary may be empty if the uploaded file exceeds the model's input length. If the summary is empty, reduce the input context length from settings and try again.
 
 ## Technology Credits
 
