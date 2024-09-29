@@ -37,7 +37,20 @@
     >
       <h2>Settings</h2>
       <label>
-        Max Context Length:
+        AI Model
+        <select v-model="aiModel">
+          <option value="@cf/meta/llama-3.1-70b-instruct">
+            Llama 3.1 70B Instruct
+          </option>
+          <option value="@cf/meta/llama-2-7b-chat-int8">Llama 2 7B Chat</option>
+          <option value="@cf/mistral/mistral-7b-instruct-v0.1">Mistral 7B Instruct v0.1</option>
+          <option value="@cf/mistral/mistral-7b-instruct-v0.2">Mistral 7B Instruct v0.2</option>
+          <option value="@hf/thebloke/mistral-7b-instruct-v0.1-awq">Mistral 7B Instruct v0.1 AWQ</option>
+          <option value="@cf/google/gemma-7b-it-lora">Gemma 7B IT LoRA</option>
+        </select>
+      </label>
+      <label>
+        Max Context Length
         <input
           v-model="maxContextLength"
           type="number"
@@ -45,15 +58,6 @@
           max="200000"
           step="1000"
         >
-      </label>
-      <label>
-        AI Model:
-        <select v-model="aiModel">
-          <option value="@cf/meta/llama-3.1-70b-instruct">
-            Llama 3.1 70B Instruct
-          </option>
-          <option value="@cf/meta/llama-2-7b-chat-int8">Llama 2 7B Chat</option>
-        </select>
       </label>
       <button @click="saveSettings">
         Save
@@ -145,7 +149,7 @@ const uploadFile = async () => {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: white;
+  background-color: #383e5f;
   padding: 2em;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
