@@ -29,7 +29,16 @@
         :key="index"
       >
         <h3>{{ sum.fileName }}</h3>
-        <p>{{ sum.content }}</p>
+        <p v-if="sum.content">
+          {{ sum.content }}
+        </p>
+        <p
+          v-else
+          class="warning"
+        >
+          Warning: The summary is empty. You may have uploaded a file that exceeds the model's input length. Please
+          reduce the input context length from settings and try again.
+        </p>
         <hr v-if="index < summaries.length - 1">
       </div>
     </div>
@@ -142,7 +151,7 @@ const uploadFile = async () => {
 
     summaries.value.unshift({
       fileName: file.name,
-      content: response.result.response
+      content: response.result.response,
     })
     error.value = ''
     fileInput.value.value = ''
@@ -160,6 +169,10 @@ const uploadFile = async () => {
 <style scoped>
 .error {
   color: red;
+}
+
+.warning {
+  color: orange;
 }
 
 .container {
@@ -209,5 +222,9 @@ const uploadFile = async () => {
 
 .settings-popup button {
   margin-right: 1em;
+}
+
+input[type="file"] {
+  width: auto;
 }
 </style>
