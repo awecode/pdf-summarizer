@@ -78,16 +78,27 @@ const showSettings = ref(false)
 const maxContextLength = ref(112000)
 const aiModel = ref('@cf/meta/llama-3.1-70b-instruct')
 
+onMounted(() => {
+  // Load settings from local storage on component mount
+  const savedSettings = localStorage.getItem('pdfSummarizerSettings')
+  if (savedSettings) {
+    const { maxContextLength: savedMaxContextLength, aiModel: savedAiModel } = JSON.parse(savedSettings)
+    maxContextLength.value = savedMaxContextLength
+    aiModel.value = savedAiModel
+  }
+})
+
 const toggleSettings = () => {
   showSettings.value = !showSettings.value
 }
 
 const saveSettings = () => {
-  // Here you would typically save the settings to your backend or local storage
-  console.log('Settings saved:', {
+  const settings = {
     maxContextLength: maxContextLength.value,
     aiModel: aiModel.value,
-  })
+  }
+  localStorage.setItem('pdfSummarizerSettings', JSON.stringify(settings))
+  console.log('Settings saved:', settings)
   showSettings.value = false
 }
 
