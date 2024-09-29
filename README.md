@@ -1,75 +1,21 @@
-# Nuxt 3 Minimal Starter
+# PDF Summarizer
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+PDF Summarizer allows users to upload PDF files and generate summaries using AI models.
 
-## Setup
+## Demo
 
-Make sure to install the dependencies:
+[https://pdf-summarizer-ckg.pages.dev/](https://pdf-summarizer-ckg.pages.dev/)
 
-```bash
-# npm
-npm install
+## Features
 
-# pnpm
-pnpm install
+- Upload PDF files
+- Generate summaries using AI models
+- Configurable AI model selection
 
-# yarn
-yarn install
+## Technology Credits
 
-# bun
-bun install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm run dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+- [Nuxt 3](https://nuxt.com/)
+- [Vue.js](https://vuejs.org/)
+- [Cloudflare Workers AI](https://developers.cloudflare.com/workers-ai/)
+- [Unpdf](https://github.com/unjs/unpdf)
+- [PicoCSS](https://picocss.com/)
