@@ -2,12 +2,17 @@
   <div class="container">
     <div class="header">
       <h1>PDF Summarizer</h1>
-      <button
-        class="settings-button"
-        @click="toggleSettings"
-      >
-        ⚙️ Settings
-      </button>
+      <div class="header-buttons">
+        <a href="https://github.com/awecode/pdf-summarizer" target="_blank" rel="noopener noreferrer" class="header-button">
+          GitHub
+        </a>
+        <button
+          class="header-button"
+          @click="toggleSettings"
+        >
+          ⚙️ Settings
+        </button>
+      </div>
     </div>
     <form @submit.prevent="uploadFile">
       <input
@@ -186,12 +191,24 @@ const uploadFile = async () => {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1em;
+  margin-bottom: 3em;
+  flex-wrap: wrap;
 }
 
-.settings-button {
+.header-buttons {
+  display: flex;
+  align-items: center;
+}
+
+.header-button {
+  margin-right: 1em;
+  text-decoration: none;
+  color: #fff;
+  background-color: #24292e;
+  padding: 0.5em 1em;
+  border-radius: 5px;
+  font-size: 0.9em;
   flex-shrink: 0;
-  margin-left: 1em;
 }
 
 .settings-popup {
