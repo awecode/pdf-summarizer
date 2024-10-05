@@ -2,6 +2,10 @@
 
 PDF Summarizer allows users to upload PDF files and generate summaries using AI models.
 
+You can deploy it with zero configuration on your Cloudflare account using NuxtHub:
+
+[![Deploy to NuxtHub](https://hub.nuxt.com/button.svg)](https://hub.nuxt.com/new?repo=awecode/pdf-summarizer)
+
 ## Demo
 
 [https://pdf-summarizer-ckg.pages.dev/](https://pdf-summarizer-ckg.pages.dev/)
