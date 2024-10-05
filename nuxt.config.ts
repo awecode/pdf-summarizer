@@ -1,7 +1,7 @@
 export default defineNuxtConfig({
   compatibilityDate: '2024-04-03',
   devtools: { enabled: true },
-  modules: ['@nuxt/eslint', 'nitro-cloudflare-dev'],
+  modules: ['@nuxt/eslint', 'nitro-cloudflare-dev', '@nuxthub/core'],
   hub: {
     ai: true
   },
