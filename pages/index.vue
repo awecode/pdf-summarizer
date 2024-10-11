@@ -147,7 +147,7 @@ const uploadFile = async () => {
   formData.append('aiModel', aiModel.value)
 
   try {
-    const response = await $fetch('/api/summarize', {
+    const response = await $fetch('/api', {
       method: 'POST',
       body: formData,
     })
